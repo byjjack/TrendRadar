@@ -225,6 +225,9 @@
 /(?<![a-zA-Z])ai(?![a-zA-Z])/i
 人工智能
 
+ChatGPT
+Gemini 
+
 [芯片]
 芯片
 光刻机

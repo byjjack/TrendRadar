@@ -15,18 +15,14 @@ jobs:
           token: ${{ secrets.PAT_TOKEN }}
 
       - name: Synchronize template
-        # 使用官方维护的最新稳定版本，替代旧的 v1
         uses: AndreasAugustin/actions-template-sync@v2.5.2
         with:
-          # 【核心修正】新版参数名改为 source_repo_path，格式为：owner/repo
+          # 源仓库路径（格式：owner/repo）
           source_repo_path: "sansan0/TrendRadar"
-          # 【核心修正】新版参数名改为 upstream_branch，指源仓库的分支
+          
+          # 源仓库的分支
           upstream_branch: "master"
-          # 【重要】目标分支参数名也变了，指你仓库的分支
-          destination_branch: "master" # 请确认你的仓库分支名
-          # 令牌参数名未变
-          github_token: ${{ secrets.PAT_TOKEN }}
-          # 冲突处理参数名未变
-          pr_on_conflict: false # 注意参数名是 pr_on_conflict，不是 create_pr_on_conflict
-          # 删除文件参数名未变
-          prune: false
+          
+          # 【修正】令牌参数名
+          source_gh_token: ${{ secrets.PAT_TOKEN }}
+      

@@ -25,4 +25,6 @@ jobs:
           
           # 【修正】令牌参数名
           source_gh_token: ${{ secrets.PAT_TOKEN }}
+
+          pr_labels: ""
       

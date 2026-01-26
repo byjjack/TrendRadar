@@ -16,7 +16,7 @@ jobs:
 
       - name: Synchronize template
         # 使用官方维护的最新稳定版本，替代旧的 v1
-        uses: AndreasAugustin/actions-template-sync@v0.12.1
+        uses: AndreasAugustin/actions-template-sync@v2.5.2
         with:
           # 【核心修正】新版参数名改为 source_repo_path，格式为：owner/repo
           source_repo_path: "sansan0/TrendRadar"

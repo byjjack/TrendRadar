@@ -1,10 +1,9 @@
 name: Sync Template Updates
 
-# 触发条件：手动触发 + 每周日0点（UTC时间）自动运行一次
 on:
-  workflow_dispatch: # 允许在GitHub网页手动点击运行
+  workflow_dispatch:
   schedule:
-    - cron: '0 0 * * 0' # 每周日UTC时间0点运行（即北京时间周一早上8点）
+    - cron: '0 0 * * 0' # 每周日UTC时间0点运行
 
 jobs:
   sync:
@@ -13,19 +12,21 @@ jobs:
       - name: Checkout your repository
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.PAT_TOKEN }} # 使用前面配置的个人访问令牌
+          token: ${{ secrets.PAT_TOKEN }}
 
       - name: Synchronize template
-        uses: AndreasAugustin/actions-template-sync@v1
+        # 使用官方维护的最新稳定版本，替代旧的 v1
+        uses: AndreasAugustin/actions-template-sync@v0.12.1
         with:
-          # 【已填写】原始模板仓库：sansan0/TrendRadar
-          source_repo: "sansan0/TrendRadar"
-          # 【请确认】你想同步到的目标分支，请根据你的仓库实际情况修改，常见的是 main 或 master
-          target_branch: "master"
-          # 用于推送和创建PR的令牌
+          # 【核心修正】新版参数名改为 source_repo_path，格式为：owner/repo
+          source_repo_path: "sansan0/TrendRadar"
+          # 【核心修正】新版参数名改为 upstream_branch，指源仓库的分支
+          upstream_branch: "master"
+          # 【重要】目标分支参数名也变了，指你仓库的分支
+          destination_branch: "master" # 请确认你的仓库分支名
+          # 令牌参数名未变
           github_token: ${{ secrets.PAT_TOKEN }}
-          # 如果遇到冲突，自动创建包含冲突的PR（设为true时）
-          # 如果设为false，当存在无法自动合并的冲突时，流程会失败
-          create_pr_on_conflict: false
-          # 自动删除在源仓库中已删除的文件（慎用，根据需求开启）
+          # 冲突处理参数名未变
+          pr_on_conflict: false # 注意参数名是 pr_on_conflict，不是 create_pr_on_conflict
+          # 删除文件参数名未变
           prune: false
